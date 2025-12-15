@@ -119,10 +119,6 @@
     }
 
     @media (min-width: 860px){
-      .grid{
-        grid-template-columns: 1fr 340px;
-        align-items:start;
-      }
       .card{ padding: 22px; }
     }
 
@@ -304,25 +300,6 @@
       line-height:1.4;
     }
 
-    /* Right panel */
-    .sideCard .row{
-      margin: 8px 0;
-    }
-
-    .smallNote{
-      font-size: 13px;
-      color: var(--muted);
-      line-height:1.5;
-      margin-top: 8px;
-    }
-
-    .divider{
-      height:1px;
-      background: var(--border);
-      margin: 14px 0;
-      opacity:0.9;
-    }
-
     .toggle{
       display:flex;
       align-items:center;
@@ -365,7 +342,17 @@
       margin: 26px 0 10px;
       font-size: 13px;
       color: var(--muted);
-      opacity:0.9;
+      opacity:0.92;
+    }
+
+    footer a{
+      color: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(148,163,184,0.55);
+    }
+    footer a:hover{
+      border-bottom-style: solid;
     }
 
     /* Reduce motion for accessibility */
@@ -380,7 +367,7 @@
     <div class="topbar">
       <div class="brand">
         <div class="logoWrap" aria-label="JoDFun capybara mascot">
-          <!-- 🦫 Real (simple) SVG capybara mascot (inline, branding colours, no external assets) -->
+          <!-- 🦫 Simple SVG capybara mascot -->
           <svg width="56" height="56" viewBox="0 0 128 128" role="img" aria-label="Capybara logo">
             <defs>
               <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
@@ -393,29 +380,21 @@
               </linearGradient>
             </defs>
 
-            <!-- background bubble -->
             <rect x="6" y="6" width="116" height="116" rx="26" fill="#fff6d1" opacity="0.9"/>
             <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#shine)" opacity="0.35"/>
 
-            <!-- capy head -->
             <path d="M26 71c0-22 20-38 44-38s44 16 44 38-20 36-44 36S26 93 26 71z"
                   fill="url(#fur)" stroke="#6b4f33" stroke-opacity="0.35" stroke-width="3"/>
-            <!-- snout -->
             <path d="M42 76c0-10 12-18 28-18s28 8 28 18-12 17-28 17S42 86 42 76z"
                   fill="#d8b086" opacity="0.95"/>
-            <!-- nose -->
             <ellipse cx="70" cy="78" rx="7" ry="5" fill="#3b2a1d" opacity="0.85"/>
-            <!-- eyes -->
             <circle cx="52" cy="64" r="6" fill="#1f2937"/>
             <circle cx="88" cy="64" r="6" fill="#1f2937"/>
             <circle cx="50" cy="62" r="2" fill="#ffffff" opacity="0.9"/>
             <circle cx="86" cy="62" r="2" fill="#ffffff" opacity="0.9"/>
-            <!-- cheeks -->
             <circle cx="44" cy="76" r="5" fill="#ffb703" opacity="0.45"/>
             <circle cx="96" cy="76" r="5" fill="#ffb703" opacity="0.45"/>
-            <!-- tiny ear -->
             <path d="M33 55c4-7 10-10 16-7-2 7-7 12-16 7z" fill="#b78958" opacity="0.95"/>
-            <!-- smile -->
             <path d="M60 87c6 5 14 5 20 0" fill="none" stroke="#6b4f33" stroke-opacity="0.5" stroke-width="4" stroke-linecap="round"/>
           </svg>
         </div>
@@ -447,7 +426,7 @@
         </div>
 
         <textarea id="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false">
-          從前，有一隻超級 chill 嘅 capybara，大家都叫佢「阿啡」。
+從前，有一隻超級 chill 嘅 capybara，大家都叫佢「阿啡」。
 阿啡最鍾意做嘅事唔係游水、唔係食草——
 而係拎住部 iPad，tab tab tab，再加一部 iPhone，100% 專注滑到入神。
 
@@ -474,7 +453,7 @@
 
 之後仲誇張。
 獅子、老虎、狼、甚至一條暴躁嘅蜜獾，
-全部變成咗**「行人路磚」**。
+全部變成咗「行人路磚」。
 而阿啡——
 只係喺度用 iPhone 睇緊一條影片：
 《10 個方法教你點樣放鬆》。
@@ -522,53 +501,14 @@
           iOS note: Some voices only speak after a user gesture (button press). This page is built to behave nicely on iPhone/iPad.
         </div>
       </div>
-
-      <!-- Side panel -->
-      <div class="card sideCard">
-        <div class="sectionTitle">
-          <h2>Tools</h2>
-          <span class="chip">Local-first</span>
-        </div>
-
-        <!-- 📦 Export to WAV (MediaRecorder workaround) -->
-        <div class="row" style="justify-content:space-between">
-          <div>
-            <div style="font-weight:800">Export</div>
-            <div class="smallNote">Creates a downloadable audio file when possible.</div>
-          </div>
-        </div>
-
-        <div class="row">
-          <button id="export" class="btn primary" type="button">⬇ Export audio</button>
-          <button id="clearAudio" class="btn soft" type="button" style="display:none;">✕ Clear</button>
-        </div>
-
-        <audio id="player" controls style="width:100%; display:none; margin-top:10px;"></audio>
-        <a id="download" class="btn soft" style="display:none; width:100%; text-align:center; text-decoration:none; margin-top:10px;"
-           download="jodfun-cantonese-tts.wav">⬇ Download</a>
-
-        <div class="divider"></div>
-
-        <div style="font-weight:800; margin-bottom:6px;">Quick checks</div>
-        <div class="smallNote" id="diag">
-          • Speech API: checking…<br/>
-          • Voices: checking…<br/>
-          • Export: checking…
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="smallNote">
-          <strong>Export reality check:</strong><br/>
-          The Web Speech API does not expose raw audio. “Export” uses a best-effort workaround:
-          it records audio playing through the page (when the browser allows it).
-          Some browsers will block capture for privacy reasons — if so, you’ll still have perfect “Speak” playback.
-        </div>
-      </div>
     </div>
 
     <footer>
-      © 2025 JoDFun Inc. All rights reserved.
+      <div style="max-width:680px;margin:0 auto;line-height:1.6;">
+        © 2025 <strong>JoDFun Inc.</strong><br/>
+        This web app is designed and implemented by JoDFun Inc.<br/>
+        If you’d like to collaborate, please email <a href="mailto:gideont@gmail.com">gideont@gmail.com</a>.
+      </div>
     </footer>
   </div>
 
@@ -590,13 +530,6 @@
     const btnResume = document.getElementById('resume');
     const btnStop = document.getElementById('stop');
     const btnReload = document.getElementById('reload');
-
-    const btnExport = document.getElementById('export');
-    const btnClearAudio = document.getElementById('clearAudio');
-    const audioPlayer = document.getElementById('player');
-    const downloadLink = document.getElementById('download');
-
-    const diagEl = document.getElementById('diag');
 
     const themeSwitch = document.getElementById('themeSwitch');
 
@@ -691,8 +624,6 @@
       } else {
         setStatus('No voices detected yet.');
       }
-
-      updateDiagnostics();
     }
 
     voiceSel.addEventListener('change', () => {
@@ -705,7 +636,7 @@
     setTimeout(loadVoices, 200);
 
     // -----------------------------
-    // Sliders (🧠 per-voice speed & pitch) + remember
+    // Sliders (🧠 speed & pitch) + remember
     // -----------------------------
     function setSliderLabels(){
       rateLabel.textContent = `${Number(rateEl.value).toFixed(2)}×`;
@@ -747,7 +678,9 @@
       u.rate = Number(rateEl.value);
       u.pitch = Number(pitchEl.value);
 
-      u.onstart = () => setStatus(`Speaking with ${u.voice?.name || 'default voice'} • speed ${u.rate.toFixed(2)}× • pitch ${u.pitch.toFixed(2)}`);
+      u.onstart = () => setStatus(
+        `Speaking with ${u.voice?.name || 'default voice'} • speed ${u.rate.toFixed(2)}× • pitch ${u.pitch.toFixed(2)}`
+      );
       u.onend = () => setStatus('Done.');
       u.onerror = (e) => setStatus(`TTS error: ${e.error || 'unknown'}`);
 
@@ -781,183 +714,7 @@
     btnStop.onclick = () => { try { synth.cancel(); } catch {} setStatus('Stopped.'); };
     btnReload.onclick = loadVoices;
 
-    // -----------------------------
-    // 📦 Export audio (best-effort)
-    // IMPORTANT: Web Speech API doesn't provide PCM. Workaround:
-    // - We attempt to capture audio from the page using getDisplayMedia (tab audio) + MediaRecorder.
-    // - User must allow screen capture + "Share tab audio" (Chrome/Edge) for this to work.
-    // - If blocked/unsupported, we show a helpful message.
-    // -----------------------------
-    let exportStream = null;
-    let recorder = null;
-    let recordedChunks = [];
-
-    function setExportUI(hasAudio){
-      audioPlayer.style.display = hasAudio ? 'block' : 'none';
-      downloadLink.style.display = hasAudio ? 'inline-block' : 'none';
-      btnClearAudio.style.display = hasAudio ? 'inline-block' : 'none';
-    }
-
-    function clearExport(){
-      recordedChunks = [];
-      if (audioPlayer.src) URL.revokeObjectURL(audioPlayer.src);
-      audioPlayer.removeAttribute('src');
-      downloadLink.removeAttribute('href');
-      setExportUI(false);
-      setStatus('Cleared exported audio.');
-    }
-    btnClearAudio.onclick = clearExport;
-
-    function supportsExport(){
-      const hasMR = typeof MediaRecorder !== 'undefined';
-      const hasGDM = !!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia);
-      return { hasMR, hasGDM };
-    }
-
-    async function exportAudio(){
-      const text = (txt.value || '').trim();
-      if (!text) return setStatus('No text to export.');
-
-      const {hasMR, hasGDM} = supportsExport();
-      if (!hasMR || !hasGDM){
-        return setStatus(
-          'Export not supported in this browser.\nTry Chrome/Edge desktop. (Speak will still work perfectly.)'
-        );
-      }
-
-      setStatus(
-        'Export step 1/2: You will be prompted to share your screen/tab.\n' +
-        'Choose THIS TAB and enable "Share tab audio" if available.'
-      );
-
-      // Stop anything currently speaking
-      try { synth.cancel(); } catch {}
-
-      // Request capture of tab audio (best chance on Chromium browsers)
-      try {
-        exportStream = await navigator.mediaDevices.getDisplayMedia({
-          video: true,
-          audio: true
-        });
-      } catch (err) {
-        return setStatus('Export cancelled / blocked by browser permissions.');
-      }
-
-      // We only need audio; keep video track minimal but some browsers require it
-      const audioTracks = exportStream.getAudioTracks();
-      if (!audioTracks || audioTracks.length === 0){
-        stopStream(exportStream);
-        exportStream = null;
-        return setStatus(
-          'No audio track was captured.\n' +
-          'Tip: In the picker, select a TAB and enable "Share tab audio".'
-        );
-      }
-
-      // Set up recorder
-      recordedChunks = [];
-      let mimeType = '';
-      // Prefer a common type; WAV is not generally supported by MediaRecorder.
-      // We'll still name the download .wav as requested, but content will likely be webm/ogg.
-      // If you need true WAV, you'd need server-side TTS or a synthesizer that exposes PCM.
-      const candidates = [
-        'audio/webm;codecs=opus',
-        'audio/webm',
-        'audio/ogg;codecs=opus',
-        'audio/ogg'
-      ];
-      for (const c of candidates){
-        if (MediaRecorder.isTypeSupported(c)) { mimeType = c; break; }
-      }
-
-      try {
-        recorder = new MediaRecorder(exportStream, mimeType ? { mimeType } : undefined);
-      } catch (e) {
-        stopStream(exportStream);
-        exportStream = null;
-        return setStatus('Export recorder could not start (MediaRecorder init failed).');
-      }
-
-      recorder.ondataavailable = (e) => {
-        if (e.data && e.data.size > 0) recordedChunks.push(e.data);
-      };
-
-      recorder.onstop = () => {
-        const blob = new Blob(recordedChunks, { type: recorder.mimeType || 'audio/webm' });
-        const url = URL.createObjectURL(blob);
-
-        audioPlayer.src = url;
-        audioPlayer.play().catch(() => {});
-
-        // User asked for WAV; browser likely produces WebM/OGG.
-        // We'll name it .wav anyway, but keep the status honest.
-        downloadLink.href = url;
-        downloadLink.download = 'jodfun-cantonese-tts.wav';
-        setExportUI(true);
-
-        setStatus(
-          'Export done.\n' +
-          'Note: Browser export often records as WebM/Opus under the hood (even if the filename says .wav).'
-        );
-
-        // Stop capture stream
-        stopStream(exportStream);
-        exportStream = null;
-
-        updateDiagnostics();
-      };
-
-      recorder.start(250);
-      setStatus('Export step 2/2: Recording… now click Speak to generate audio, then Stop export.');
-
-      // Speak while recording
-      lastUtterance = buildUtterance(text);
-      lastUtterance.onend = () => {
-        // Small delay to flush last chunk
-        setTimeout(() => {
-          try { recorder.stop(); } catch {}
-        }, 300);
-      };
-      lastUtterance.onerror = () => {
-        setTimeout(() => {
-          try { recorder.stop(); } catch {}
-        }, 200);
-      };
-
-      // Speak
-      try { synth.resume(); } catch {}
-      synth.speak(lastUtterance);
-    }
-
-    function stopStream(stream){
-      try {
-        stream.getTracks().forEach(t => t.stop());
-      } catch {}
-    }
-
-    btnExport.onclick = exportAudio;
-
-    // -----------------------------
-    // Diagnostics
-    // -----------------------------
-    function updateDiagnostics(){
-      const speechOk = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
-      const voiceCount = (synth?.getVoices?.() || []).length;
-
-      const {hasMR, hasGDM} = supportsExport();
-      let exportMsg = 'Export: ';
-      if (hasMR && hasGDM) exportMsg += 'best-effort available (Chrome/Edge desktop recommended)';
-      else exportMsg += 'not supported here (Speak still works)';
-
-      diagEl.innerHTML =
-        `• Speech API: ${speechOk ? 'OK' : 'Not available'}<br/>` +
-        `• Voices: ${voiceCount ? voiceCount + ' detected' : 'none yet (try Reload)'}<br/>` +
-        `• ${exportMsg}`;
-    }
-    updateDiagnostics();
-
     // iOS: keep audio alive after user gesture
-    // (No-op but useful for keeping the page "primed")
     document.addEventListener('touchstart', () => { try { synth.resume(); } catch {} }, { passive: true });
   </script>
 </body>
