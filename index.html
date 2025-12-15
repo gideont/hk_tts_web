@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cantonese TTS (Browser)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; max-width: 900px; }
+    textarea { width: 100%; height: 180px; font-size: 16px; padding: 12px; }
+    select, button { font-size: 16px; padding: 8px 10px; margin-right: 8px; }
+    .row { margin: 12px 0; }
+    .hint { opacity: 0.75; font-size: 14px; margin-top: 8px; }
+    #status { margin-top: 10px; font-size: 14px; opacity: 0.8; }
+  </style>
+</head>
+
+<body>
+  <h2>Cantonese “Read Aloud” (Browser Web Speech API)</h2>
+
+  <div class="row">
+    <label for="voice">Voice:</label>
+    <select id="voice"></select>
+    <button id="reload">Reload voices</button>
+  </div>
+
+  <div class="row">
+    <textarea id="text">你好！我想用粵語讀呢段文字。</textarea>
+  </div>
+
+  <div class="row">
+    <button id="speak">Speak</button>
+    <button id="pause">Pause</button>
+    <button id="resume">Resume</button>
+    <button id="stop">Stop</button>
+  </div>
+
+  <div id="status"></div>
+  <div class="hint">
+    Tip: If the Cantonese voice list is empty, click “Reload voices”, or click Speak once then reload.
+  </div>
+
+  <!-- ✅ Script at end of body -->
+  <script>
+    const voiceSel = document.getElementById('voice');
+    const txt = document.getElementById('text');
+    const statusEl = document.getElementById('status');
+
+    const synth = window.speechSynthesis;
+    let voiceMap = new Map(); // voice.name -> voice object
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+      console.log('[TTS]', msg);
+    }
+
+    function loadVoices() {
+      const voices = synth.getVoices() || [];
+      voiceSel.innerHTML = '';
+      voiceMap.clear();
+
+      voices.forEach(v => voiceMap.set(v.name, v));
+
+      const preferred = voices
+        .map(v => {
+          const name = (v.name || '').toLowerCase();
+          const lang = (v.lang || '').toLowerCase();
+          let score = 0;
+          if (lang === 'yue-hk') score += 100;
+          if (lang === 'zh-hk') score += 60;
+          if (name.includes('粵語') || name.includes('cantonese') || name.includes('yue')) score += 50;
+          if (name.includes('google')) score += 10;
+          return { v, score };
+        })
+        .sort((a,b) => b.score - a.score)
+        .map(x => x.v);
+
+      preferred.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.name;                 // ✅ stable key
+        opt.textContent = `${v.name} — ${v.lang}`;
+        voiceSel.appendChild(opt);
+      });
+
+      if (voiceSel.options.length) {
+        voiceSel.selectedIndex = 0;
+        setStatus(`Loaded ${voiceSel.options.length} voices. Selected: ${voiceSel.value}`);
+      } else {
+        setStatus('No voices yet. Click Speak once, then Reload voices.');
+      }
+    }
+
+    function speak() {
+      const text = (txt.value || '').trim();
+      if (!text) return setStatus('No text to speak.');
+
+      try { synth.resume(); } catch {}
+
+      const u = new SpeechSynthesisUtterance(text);
+
+      const selectedName = voiceSel.value;
+      const v = voiceMap.get(selectedName);
+      if (v) u.voice = v;
+
+      u.rate = 1.0;
+      u.pitch = 1.0;
+
+      u.onstart = () => setStatus(`Speaking with: ${u.voice ? u.voice.name : '(default voice)'}`);
+      u.onend = () => setStatus('Done.');
+      u.onerror = (e) => setStatus(`TTS error: ${e.error || 'unknown'}`);
+
+      synth.cancel();
+      synth.speak(u);
+
+      setTimeout(() => {
+        if (!synth.speaking) setStatus('Not speaking. Check site sound permissions / output device.');
+      }, 500);
+    }
+
+    document.getElementById('speak').onclick = speak;
+    document.getElementById('pause').onclick = () => { synth.pause(); setStatus('Paused.'); };
+    document.getElementById('resume').onclick = () => { synth.resume(); setStatus('Resumed.'); };
+    document.getElementById('stop').onclick = () => { synth.cancel(); setStatus('Stopped.'); };
+    document.getElementById('reload').onclick = loadVoices;
+
+    synth.onvoiceschanged = loadVoices;
+    setTimeout(loadVoices, 200);
+  </script>
+</body>
+</html>
