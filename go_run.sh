@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m http.server 8008
+live-server . --port=8008 --no-browser
