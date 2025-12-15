@@ -1,222 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Cantonese Read-Aloud • JoDFun</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cantonese Read-Aloud • JoDFun</title>
 
-<style>
-:root{
-  --bg:#0b1220;
-  --bg2:#0f1a33;
-  --card:#0f172a;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-  --primary:#7aa2ff;
-  --border:#24314e;
-  --radius:16px;
-  --tap:44px;
-}
-
-/* Light theme */
-html[data-theme="light"]{
-  --bg:#f7f8fb;
-  --bg2:#f3f5ff;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --primary:#6b8cff;
-  --border:#e5e7eb;
-}
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:linear-gradient(180deg,var(--bg2),var(--bg));
-  color:var(--text);
-}
-
-.container{
-  max-width:980px;
-  margin:0 auto;
-  padding:18px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:22px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logoWrap{
-  width:56px;
-  height:56px;
-  border-radius:16px;
-  background:radial-gradient(circle at 30% 30%, #fff6d1, #ffd166);
-  display:grid;
-  place-items:center;
-  flex-shrink:0;
-}
-
-.brand h1{
-  margin:0;
-  font-size:22px;
-  font-weight:800;
-}
-
-.brand p{
-  margin:6px 0 0;
-  font-size:13px;
-  color:var(--muted);
-}
-
-/* Toggle */
-.toggle{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-}
-
-.switch{
-  width:50px;
-  height:28px;
-  border-radius:999px;
-  background:rgba(148,163,184,0.25);
-  position:relative;
-}
-
-.switch::after{
-  content:"";
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:var(--card);
-  position:absolute;
-  top:3px;
-  left:3px;
-  transition:left .2s ease;
-}
-
-html[data-theme="dark"] .switch::after{ left:25px; }
-
-label{
-  font-size:13px;
-  font-weight:700;
-  color:var(--muted);
-}
-
-select, textarea, button, input[type="range"]{
-  font-size:15px;
-}
-
-select, textarea{
-  width:100%;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:transparent;
-  color:var(--text);
-}
-
-select{
-  height:var(--tap);
-  padding:0 12px;
-}
-
-textarea{
-  min-height:240px;
-  padding:14px;
-  line-height:1.6;
-  resize:vertical;
-  overflow:hidden;
-}
-
-.controls{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
-}
-
-.btn{
-  height:var(--tap);
-  padding:0 14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:transparent;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.btn.primary{
-  background:var(--primary);
-  color:#fff;
-  border:none;
-}
-
-.slider{
-  margin-top:12px;
-}
-
-.slider label{
-  display:flex;
-  justify-content:space-between;
-}
-
-#progress{
-  width:100%;
-  margin-top:14px;
-}
-
-#reader{
-  margin-top:18px;
-  padding:12px;
-  border-radius:12px;
-  border:1px dashed var(--border);
-  display:none;
-}
-
-.chunk{
-  display:block;
-  padding:6px 8px;
-  border-radius:8px;
-}
-
-.chunk.active{
-  background:rgba(122,162,255,0.18);
-  border-left:4px solid var(--primary);
-  padding-left:12px;
-}
-
-footer{
-  margin-top:26px;
-  text-align:center;
-  font-size:13px;
-  color:var(--muted);
-}
-
-footer a{
-  color:inherit;
-  font-weight:800;
-  text-decoration:none;
-}
-</style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
@@ -253,7 +42,7 @@ footer a{
     <label style="margin-top:10px;">Text</label>
     <textarea id="text" rows="18">從前，有一隻超級 chill 嘅 capybara，大家都叫佢「阿啡」。
 阿啡最鍾意做嘅事唔係游水、唔係食草——
-而係拎住部 iPad，tab tab tab，再加一部 iPhone，100% 專注滑到入神。
+而係拎住部 iPad，tab tab tab，100% 專注滑到入神。
 
 有一日，阿啡一邊慢慢行，一邊用手指喺 iPad 度畫畫，
 「tab、tab、tab」
@@ -305,174 +94,24 @@ footer a{
       <button class="btn" id="stop">■ Stop</button>
     </div>
 
+    <div class="notice">
+      <strong>⚠️ Audio quality note</strong>
+      Cantonese voice quality depends on your device.<br/>
+      Best experience on desktop Chrome.<br/>
+      Some Android devices may sound unnatural.
+    </div>
+
     <div id="reader"></div>
   </div>
 
   <footer>
-    © 2025 <strong>JoDFun Inc.</strong><br/>
-    Designed and implemented by JoDFun Inc.<br/>
-    Collaboration: <a href="mailto:gideont@gmail.com">gideont@gmail.com</a>
+    © 2025 <strong>Jodfun Inc.</strong><br/>
+    Designed and implemented by Jodfun Inc.<br/>
+    For collaboration, please email to: <a href="mailto:gideon@jodfun.com">gideon@jodfun.com</a>
   </footer>
 
 </div>
 
-<script>
-/* Default dark mode */
-document.documentElement.setAttribute('data-theme','dark');
-
-const synth = speechSynthesis;
-const voiceSel = document.getElementById('voice');
-const textEl = document.getElementById('text');
-const reader = document.getElementById('reader');
-const progress = document.getElementById('progress');
-const playPauseBtn = document.getElementById('playPause');
-
-const rate = document.getElementById('rate');
-const pitch = document.getElementById('pitch');
-const rateLabel = document.getElementById('rateLabel');
-const pitchLabel = document.getElementById('pitchLabel');
-
-let chunks = [];
-let index = 0;
-let speaking = false;
-let paused = false;
-
-/* Auto-expand textarea */
-function autoResize(){
-  textEl.style.height = 'auto';
-  textEl.style.height = textEl.scrollHeight + 'px';
-}
-textEl.addEventListener('input', autoResize);
-
-/* Voices */
-function loadVoices(){
-  voiceSel.innerHTML = '';
-  synth.getVoices().forEach(v=>{
-    const o=document.createElement('option');
-    o.value=v.name;
-    o.textContent=`${v.name} — ${v.lang}`;
-    voiceSel.appendChild(o);
-  });
-
-  const cantonese=[...voiceSel.options].find(o=>/yue|粵|cantonese|zh-hk/i.test(o.text));
-  if(cantonese) voiceSel.value=cantonese.value;
-}
-
-/* Build paragraphs */
-function buildChunks(){
-  reader.innerHTML='';
-  chunks = textEl.value
-    .split(/\n\s*\n/)
-    .map(t=>t.trim())
-    .filter(Boolean)
-    .map(t=>{
-      const s=document.createElement('span');
-      s.className='chunk';
-      s.textContent=t;
-      reader.appendChild(s);
-      return s;
-    });
-
-  reader.style.display = chunks.length ? 'block':'none';
-  progress.disabled = !chunks.length;
-}
-
-/* Highlight */
-function highlight(i){
-  chunks.forEach((c,idx)=>c.classList.toggle('active',idx===i));
-}
-
-/* Speak logic */
-function speakFrom(i){
-  if(!chunks.length) return;
-  synth.cancel();
-  index=i;
-  speaking=true;
-  paused=false;
-  playPauseBtn.textContent='⏸ Pause';
-  speakNext();
-}
-
-function speakNext(){
-  if(!speaking || index>=chunks.length){
-    speaking=false;
-    paused=false;
-    playPauseBtn.textContent='▶ Speak';
-    return;
-  }
-
-  highlight(index);
-  progress.value = Math.floor(index / chunks.length * 100);
-
-  const u=new SpeechSynthesisUtterance(chunks[index].textContent);
-  const v=synth.getVoices().find(v=>v.name===voiceSel.value);
-  if(v) u.voice=v;
-
-  u.rate=+rate.value;
-  u.pitch=+pitch.value;
-
-  u.onend=()=>{
-    index++;
-    speakNext();
-  };
-
-  synth.speak(u);
-}
-
-/* Play / Pause / Resume */
-playPauseBtn.onclick=()=>{
-  if(!speaking){
-    buildChunks();
-    speakFrom(Math.floor(progress.value/100*chunks.length)||0);
-    return;
-  }
-
-  if(speaking && !paused){
-    synth.pause();
-    paused=true;
-    playPauseBtn.textContent='⏵ Resume';
-    return;
-  }
-
-  if(paused){
-    paused=false;
-    synth.cancel();
-    speakFrom(index); // restart paragraph with new speed/pitch
-  }
-};
-
-/* Stop = hard reset */
-document.getElementById('stop').onclick=()=>{
-  synth.cancel();
-  speaking=false;
-  paused=false;
-  index=0;
-  progress.value=0;
-  chunks.forEach(c=>c.classList.remove('active'));
-  playPauseBtn.textContent='▶ Speak';
-};
-
-/* Seek */
-progress.addEventListener('input',e=>{
-  if(!chunks.length) return;
-  speakFrom(Math.floor(e.target.value/100*chunks.length));
-});
-
-/* Sliders */
-rate.oninput=()=>rateLabel.textContent=`${(+rate.value).toFixed(2)}×`;
-pitch.oninput=()=>pitchLabel.textContent=`${(+pitch.value).toFixed(2)}`;
-
-/* Theme toggle */
-document.getElementById('themeToggle').onclick=()=>{
-  document.documentElement.setAttribute(
-    'data-theme',
-    document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'
-  );
-};
-
-/* Init */
-if('onvoiceschanged' in synth) synth.onvoiceschanged=loadVoices;
-loadVoices();
-</script>
+<script src="./app.js"></script>
 </body>
 </html>
