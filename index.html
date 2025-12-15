@@ -6,7 +6,7 @@
   <title>Cantonese TTS (Browser)</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 24px; max-width: 900px; }
-    textarea { width: 100%; height: 180px; font-size: 16px; padding: 12px; }
+    textarea { width: 100%; min-height: 180px; font-size: 16px; padding: 12px; overflow: hidden; }
     select, button { font-size: 16px; padding: 8px 10px; margin-right: 8px; }
     .row { margin: 12px 0; }
     .hint { opacity: 0.75; font-size: 14px; margin-top: 8px; }
@@ -44,6 +44,8 @@
     const voiceSel = document.getElementById('voice');
     const txt = document.getElementById('text');
     const statusEl = document.getElementById('status');
+
+    const MIN_TEXTAREA_HEIGHT = 180;
 
     const synth = window.speechSynthesis;
     let voiceMap = new Map(); // voice.name -> voice object
@@ -89,6 +91,12 @@
       }
     }
 
+    function autoResizeTextarea(el) {
+      if (!el) return;
+      el.style.height = 'auto';
+      el.style.height = `${Math.max(el.scrollHeight, MIN_TEXTAREA_HEIGHT)}px`;
+    }
+
     function speak() {
       const text = (txt.value || '').trim();
       if (!text) return setStatus('No text to speak.');
@@ -121,6 +129,9 @@
     document.getElementById('resume').onclick = () => { synth.resume(); setStatus('Resumed.'); };
     document.getElementById('stop').onclick = () => { synth.cancel(); setStatus('Stopped.'); };
     document.getElementById('reload').onclick = loadVoices;
+
+    txt.addEventListener('input', () => autoResizeTextarea(txt));
+    autoResizeTextarea(txt);
 
     synth.onvoiceschanged = loadVoices;
     setTimeout(loadVoices, 200);
